@@ -13,8 +13,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
         }
         h1 {
             font-size: 3em;
@@ -23,15 +24,181 @@
             color: #FFFFFF;
             text-shadow: 0 0 10px #393838;
         }
+        .stage {
+            text-align: center;
+            max-width: 800px;
+            display: none;
+        }
+        .stage.active {
+            display: block;
+        }
         img {
             max-width: 80%;
             border: 2px solid #393838;
             box-shadow: 0 0 20px #393838;
+            margin-bottom: 30px;
+        }
+        .riddle-text {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #393838;
+            background-color: #111111;
+            box-shadow: 0 0 15px #393838;
+        }
+        button {
+            background-color: #333333;
+            color: #FFFFFF;
+            border: 2px solid #393838;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #555555;
+            box-shadow: 0 0 10px #393838;
+        }
+        .stage-info {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #CCCCCC;
+        }
+        .notification {
+            background-color: #222222;
+            border: 2px solid #393838;
+            padding: 20px;
+            margin: 20px 0;
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .notification.show {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .final-instructions {
+            background-color: #1a1a1a;
+            border: 2px solid #393838;
+            padding: 25px;
+            margin: 20px 0;
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
-    <h1>Entrance Test</h1>
-    <img src="enterance.png" alt="Entrance Challenge">
+    <!-- Stage 1: Hidden Key Challenge -->
+    <div class="stage active" id="stage1">
+        <h1>Entrance Test - Stage 1</h1>
+        <div class="stage-info">Find the hidden key in this image</div>
+        <img src="enterance.png" alt="Entrance Challenge">
+        <button onclick="completeStage1()">Next Stage</button>
+        <div class="notification" id="notification1">
+            <strong>Stage 1 Complete!</strong><br>
+            Make sure to save your answer from this challenge. You will need it later.
+        </div>
+    </div>
+
+    <!-- Stage 2: Caesar Cipher Riddle -->
+    <div class="stage" id="stage2">
+        <h1>Entrance Test - Stage 2</h1>
+        <div class="stage-info">Solve this riddle</div>
+        <div class="riddle-text">
+            Stage 2: Solve this riddle:
+            <br><br>
+            Hidden messages lie where letters entwine,<br>
+            Layers of meaning in a sequence divine.<br>
+            The key you hold, from the past you keep,<br>
+            Is the name of those who secrets reap.<br><br>
+            Words shift in patterns, not by a simple count,<br>
+            But by the letters of the name that surmount.<br>
+            What once was masked in shadows of text,<br>
+            Now reveals itself to the mind most perplexed.<br><br>
+            Seek not in numbers, seek not in Rome,<br>
+            With <strong>Strata</strong> as guide, let the cipher be known.
+        </div>
+        <button onclick="completeStage2()">Next Stage</button>
+        <div class="notification" id="notification2">
+            <strong>Stage 2 Complete!</strong><br>
+            Make sure to save your answer from this challenge. You will need it later.
+        </div>
+    </div>
+
+    <!-- Stage 3: Mathematical Riddle -->
+    <div class="stage" id="stage3">
+        <h1>Entrance Test - Stage 3</h1>
+        <div class="stage-info">Final Challenge - Solve this riddle</div>
+        <div class="riddle-text">
+            Seven ancient vessels carry wisdom untold,<br>
+            Each holding first letters of stories of old.<br>
+            Transform these symbols to numbers that gleam,<br>
+            Sum all their values, complete the grand scheme.<br><br>
+            
+            When totals are gathered, division awaits,<br>
+            By twenty-six portions, as mathematical fates.<br>
+            The remainder that lingers, if zero appears,<br>
+            Let twenty-six be the answer that clears.<br><br>
+            
+            Convert back to letters, the sequence you've found,<br>
+            This final key makes the circle come round.
+        </div>
+        <button onclick="completeStage3()">Finish Test</button>
+        <div class="notification" id="notification3">
+            <strong>Test Complete!</strong><br>
+            Congratulations! You have completed all stages of the entrance test.
+        </div>
+    </div>
+
+    <!-- Final Instructions -->
+    <div class="stage" id="final">
+        <h1>Test Complete</h1>
+        <div class="final-instructions">
+            <strong>Congratulations!</strong><br><br>
+            
+            You have successfully completed all three stages of the entrance test.<br><br>
+            
+            <strong>Next Steps:</strong><br>
+            Take all of your answers from each challenge and send them via Discord DM to either:<br><br>
+            
+            <strong>@Nox</strong> or <strong>@Lux</strong><br><br>
+            
+            Include all three answers in your message to complete your application. If you didn't complete a stage, dont include that answer.
+        </div>
+    </div>
+
+    <script>
+        let currentStage = 1;
+
+        function completeStage1() {
+            document.getElementById('notification1').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('stage1').classList.remove('active');
+                document.getElementById('stage2').classList.add('active');
+                currentStage = 2;
+            }, 3000);
+        }
+
+        function completeStage2() {
+            document.getElementById('notification2').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('stage2').classList.remove('active');
+                document.getElementById('stage3').classList.add('active');
+                currentStage = 3;
+            }, 3000);
+        }
+
+        function completeStage3() {
+            document.getElementById('notification3').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('stage3').classList.remove('active');
+                document.getElementById('final').classList.add('active');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
